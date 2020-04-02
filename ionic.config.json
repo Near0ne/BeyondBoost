@@ -1,0 +1,7 @@
+{
+  "name": "boost-beyond",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
