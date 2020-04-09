@@ -9,12 +9,7 @@ import { WodPageRoutingModule } from './wod-routing.module';
 import { WodPage } from './wod.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    WodPageRoutingModule
-  ],
-  declarations: [WodPage]
+  imports: [CommonModule, FormsModule, IonicModule, WodPageRoutingModule],
+  declarations: [WodPage],
 })
 export class WodPageModule {}

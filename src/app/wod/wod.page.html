@@ -1,9 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>wod</ion-title>
+    <ion-title>Workout Of the Day</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let exercise of exercises$ | async" detail>
+      <ion-label>{{ exercise.label }}</ion-label>
+    </ion-item>
+  </ion-list>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="presentCreateExerciseModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
