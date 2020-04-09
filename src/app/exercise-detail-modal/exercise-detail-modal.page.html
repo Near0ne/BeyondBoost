@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ exercise.label }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Fermer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Description</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ exercise.description }}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CreateExerciseModalPageModule } from './create-exercise-modal/create-exercise-modal.module';
+import { ExerciseDetailModalPageModule } from './exercise-detail-modal/exercise-detail-modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { CreateExerciseModalPageModule } from './create-exercise-modal/create-ex
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     CreateExerciseModalPageModule,
+    ExerciseDetailModalPageModule,
   ],
   providers: [StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
