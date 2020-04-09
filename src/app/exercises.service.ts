@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface ExerciseInterface {
   id: number;
@@ -12,9 +12,9 @@ export interface ExerciseInterface {
 })
 export class ExercisesService {
   private exercises = new BehaviorSubject<ExerciseInterface[]>([
-    { id: 1, label: 'pull-up', description: 'pull yourself up' },
-    { id: 1, label: 'push-up', description: 'push yourself up' },
-    { id: 1, label: 'squat', description: 'squat your body' },
+    { id: 1, label: 'Pull-up', description: 'Pull yourself up.' },
+    { id: 2, label: 'Push-up', description: 'Push yourself up.' },
+    { id: 3, label: 'Squat', description: 'Squat your body.' },
   ]);
   public exercises$ = this.exercises.asObservable();
 
@@ -32,6 +32,15 @@ export class ExercisesService {
       description,
     };
     const updatedExercises = [...exercises, exercise];
+
     this.exercises.next(updatedExercises);
+  }
+
+  public deleteExercise(id: number): void {
+    const exercises = this.exercises.getValue();
+    const removeId = exercises.findIndex((ex) => ex.id === id);
+    exercises.splice(removeId, 1);
+
+    this.exercises.next(exercises);
   }
 }

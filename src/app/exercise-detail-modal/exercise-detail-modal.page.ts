@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ExerciseInterface, ExercisesService } from '../exercises.service';
-import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-exercise-detail-modal',
@@ -11,15 +10,16 @@ import { FormBuilder } from '@angular/forms';
 export class ExerciseDetailModalPage implements OnInit {
   @Input() exercise: ExerciseInterface;
 
-  constructor(
-    public modalController: ModalController,
-    private exercisesService: ExercisesService,
-    private fb: FormBuilder,
-  ) {}
+  constructor(public modalController: ModalController, private exercisesService: ExercisesService) {}
 
   ngOnInit() {}
 
   public dismissModal(): void {
     this.modalController.dismiss();
+  }
+
+  public deleteExercise(): void {
+    this.exercisesService.deleteExercise(this.exercise.id);
+    this.dismissModal();
   }
 }
