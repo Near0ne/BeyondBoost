@@ -3,17 +3,21 @@
     <ion-list>
       <ion-item>
         <ion-label position="floating">Adresse e-mail</ion-label>
-        <ion-input formControlName="email"></ion-input>
+        <ion-input formControlName="email" type="email"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Mot de passe</ion-label>
-        <ion-input formControlName="password"></ion-input>
+        <ion-input formControlName="password"
+                   type="password"></ion-input>
       </ion-item>
     </ion-list>
   </form>
 
-  <ion-button expand="block" (click)="register()">S'inscrire</ion-button>
+  <ion-button expand="block"
+              [disabled]="registerForm.invalid"
+              (click)="register()">S'inscrire</ion-button>
+
   <ion-button expand="block" fill="outline"
               [routerLink]="['/auth', 'login']">Se connecter</ion-button>
 
