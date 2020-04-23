@@ -7,10 +7,13 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
   {
-    path: '',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthPageModule),
   },
-
+  {
+    path: '**',
+    redirectTo: '/app/wod',
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],

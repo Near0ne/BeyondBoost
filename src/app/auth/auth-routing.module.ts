@@ -1,40 +1,40 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthPage } from './auth.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: TabsPage,
+    component: AuthPage,
     children: [
       {
-        path: 'wod',
+        path: 'login',
         children: [
           {
             path: '',
-            loadChildren: () => import('../wod/wod.module').then((m) => m.WodPageModule),
+            loadChildren: () => import('../login/login.module').then((m) => m.LoginPageModule),
           },
         ],
       },
       {
-        path: 'workouts',
+        path: 'register',
         children: [
           {
             path: '',
-            loadChildren: () => import('../workouts/workouts.module').then((m) => m.WorkoutsPageModule),
+            loadChildren: () => import('../register/register.module').then((m) => m.RegisterPageModule),
           },
         ],
       },
       {
         path: '',
-        redirectTo: '/app/wod',
+        redirectTo: '/auth/login',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/app/wod',
+    redirectTo: '/auth/login',
     pathMatch: 'full',
   },
 ];
@@ -43,4 +43,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TabsPageRoutingModule {}
+export class AuthPageRoutingModule {}
