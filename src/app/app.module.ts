@@ -12,6 +12,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CreateExerciseModalPageModule } from './create-exercise-modal/create-exercise-modal.module';
 import { ExerciseDetailModalPageModule } from './exercise-detail-modal/exercise-detail-modal.module';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +26,11 @@ import { ExerciseDetailModalPageModule } from './exercise-detail-modal/exercise-
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     CreateExerciseModalPageModule,
     ExerciseDetailModalPageModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
   ],
   providers: [StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
