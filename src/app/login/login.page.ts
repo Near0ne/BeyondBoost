@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/ngx';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +20,42 @@ export class LoginPage implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
+    private androidFingerprintAuth: AndroidFingerprintAuth,
     public toastController: ToastController,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.androidFingerprintAuth
+      .isAvailable()
+      .then((result) => {
+        if (result.isAvailable) {
+          // it is available
+
+          this.androidFingerprintAuth
+            .encrypt({ clientId: 'myAppName', username: 'myUsername', password: 'myPassword' })
+            .then((result) => {
+              if (result.withFingerprint) {
+                alert('Successfully encrypted credentials.');
+                alert('Encrypted credentials: ' + result.token);
+              } else if (result.withBackup) {
+                alert('Successfully authenticated with backup password!');
+              } else {
+                alert("Didn't authenticate!");
+              }
+            })
+            .catch((error) => {
+              if (error === this.androidFingerprintAuth.ERRORS.FINGERPRINT_CANCELLED) {
+                alert('Fingerprint authentication cancelled');
+              } else {
+                alert(error);
+              }
+            });
+        } else {
+          // fingerprint auth isn't available
+        }
+      })
+      .catch((error) => console.error(error));
+  }
 
   public login(): void {
     const email = this.loginForm.controls.email.value;

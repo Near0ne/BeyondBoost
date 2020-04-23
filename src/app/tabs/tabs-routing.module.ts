@@ -17,13 +17,12 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'workouts',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('../workouts/workouts.module').then((m) => m.WorkoutsPageModule),
-          },
-        ],
+        path: 'profile',
+        loadChildren: () => import('../profile/profile.module').then((m) => m.ProfilePageModule),
+      },
+      {
+        path: 'exercises',
+        loadChildren: () => import('../exercises/exercises.module').then((m) => m.ExercisesPageModule),
       },
       {
         path: '',

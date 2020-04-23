@@ -1,19 +1,11 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import { firebase } from './local';
 
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: 'AIzaSyD1NBonO_WEteT2tF2HIsnS8rK0wuv2C80',
-    authDomain: 'boost-beyond.firebaseapp.com',
-    databaseURL: 'https://boost-beyond.firebaseio.com',
-    projectId: 'boost-beyond',
-    storageBucket: 'boost-beyond.appspot.com',
-    messagingSenderId: '516389660484',
-    appId: '1:516389660484:web:5032084a15029321f11911',
-    measurementId: 'G-QX52WFGEF3',
-  },
+  firebase,
 };
 
 /*
