@@ -18,11 +18,21 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        loadChildren: () => import('../profile/profile.module').then((m) => m.ProfilePageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../profile/profile.module').then((m) => m.ProfilePageModule),
+          },
+        ],
       },
       {
         path: 'exercises',
-        loadChildren: () => import('../exercises/exercises.module').then((m) => m.ExercisesPageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../exercises/exercises.module').then((m) => m.ExercisesPageModule),
+          },
+        ],
       },
       {
         path: '',
