@@ -1,3 +1,6 @@
+import { firebase } from './local';
+
 export const environment = {
-  production: true
+  production: true,
+  firebase,
 };

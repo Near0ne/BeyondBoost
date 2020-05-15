@@ -1,21 +1,28 @@
+<ion-content>
+  <form [formGroup]="loginForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Adresse e-mail</ion-label>
+        <ion-input formControlName="email"></ion-input>
+      </ion-item>
 
+      <ion-item>
+        <ion-label position="floating">Mot de passe</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
 
-<ion-content class="main">
-  <ion-grid>
-    <ion-row>
-      <ion-img class="logo"></ion-img>
-    </ion-row>
-    <ion-row>
-      <ion-input placeholder="Adresse email" class="entry"></ion-input>
-    </ion-row>
-    <ion-row>
-      <ion-input placeholder="Mot de passe" class="entry"></ion-input>
-    </ion-row>
-    <ion-row>
-      <ion-button class="connection" [routerLink]="['app/tabs/wod']">connexion</ion-button>
-    </ion-row>
-    <ion-row>
-      <ion-button class="register">s'inscrire</ion-button>
-    </ion-row>
-  </ion-grid>
+  <ion-button expand="block"
+              [disabled]="loginForm.invalid"
+              (click)="login()">Connexion</ion-button>
+
+  <ion-button expand="block" fill="outline"
+              [routerLink]="['/auth', 'register']">S'inscrire</ion-button>
+
+<!--  <ion-button fill="clear" (click)="showFingerprintAuthDialog()">-->
+<!--    <ion-icon slot="icon-only" name="finger-print-outline"></ion-icon>-->
+<!--  </ion-button>-->
+
+  <a [routerLink]="['/app', 'wod']">Je souhaite m'entraîner sans m'inscrire</a>
 </ion-content>

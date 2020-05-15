@@ -4,7 +4,7 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
@@ -17,24 +17,33 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'workouts',
+        path: 'profile',
         children: [
           {
             path: '',
-            loadChildren: () => import('../workouts/workouts.module').then((m) => m.WorkoutsPageModule),
+            loadChildren: () => import('../profile/profile.module').then((m) => m.ProfilePageModule),
+          },
+        ],
+      },
+      {
+        path: 'exercises',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../exercises/exercises.module').then((m) => m.ExercisesPageModule),
           },
         ],
       },
       {
         path: '',
-        redirectTo: '/tabs/wod',
+        redirectTo: '/app/wod',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/wod',
+    redirectTo: '/app/wod',
     pathMatch: 'full',
   },
 ];

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mon profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="!(loggedIn$ | async)">
+    <p>Connectez-vous pour accéder à cette section.</p>
+
+    <ion-button fill="outline" [routerLink]="['/auth', 'login']">Connexion</ion-button>
+  </ng-container>
+
+  <ng-container *ngIf="loggedIn$ | async">
+    <ion-button fill="outline"
+                expand="block"
+                color="danger"
+                (click)="logout()">Déconnexion</ion-button>
+  </ng-container>
+</ion-content>
