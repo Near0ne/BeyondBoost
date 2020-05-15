@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AngularFirestore, DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
 import { IExercise } from './shared/types/exercise.interface';
 
@@ -24,14 +24,14 @@ export class ExercisesService {
     return this.firestore.collection(this.collectionName).add(exercise);
   }
 
-  public updateExercise(uid: string, data: { label?: string; description?: string }) {
+  public updateExercise(uid: string, data: { label?: string; description?: string }): Promise<void> {
     return this.firestore
       .collection(this.collectionName)
       .doc(uid)
       .set({ ...data }, { merge: true });
   }
 
-  public deleteExercise(uid: string): void {
-    this.firestore.collection(this.collectionName).doc(uid).delete();
+  public deleteExercise(uid: string): Promise<void> {
+    return this.firestore.collection(this.collectionName).doc(uid).delete();
   }
 }

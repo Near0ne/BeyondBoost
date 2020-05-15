@@ -34,12 +34,14 @@ export class ExercisesPage implements OnInit {
       uid: document.id,
       ...document.data(),
     };
+
     const modal = await this.modalController.create({
       component: ExerciseDetailModalPage,
       componentProps: {
         exercise,
       },
     });
+
     return await modal.present();
   }
 }

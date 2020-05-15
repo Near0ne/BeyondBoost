@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Workout Of the Day</ion-title>
+    <ion-title>Entraînement du jour</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ng-container *ngIf="!user">
+    <p>Connectez-vous pour accéder à votre entrainement.</p>
 
+    <ion-button fill="outline" [routerLink]="['/auth', 'login']">Connexion</ion-button>
+  </ng-container>
+
+  <ng-container *ngIf="user">
+    <div *ngIf="workout?.exercises.length === 0" fxLayoutAlign="center">
+      <ion-icon name="sad-outline"></ion-icon>&nbsp;Vous n'avez aucun exercice dans votre entraînement.
+    </div>
+
+    <ion-button expand="block" (click)="presentAddExerciseModal()">
+      Ajouter un exercice
+    </ion-button>
+
+    <ion-list *ngIf="workout?.exercises.length > 0">
+      <ion-item *ngFor="let exercise of workout?.exercises" (click)="presentEditWorkoutExerciseModal()" detail>
+        <ion-label>{{ exercise.label }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
 </ion-content>
+<!--
+FEetch le workout, si y'en a pas créer un vide
+Ajouter un exo
+NOMMER LE WOD
+Compléter le WOD
+Supprimer le wod
+-->

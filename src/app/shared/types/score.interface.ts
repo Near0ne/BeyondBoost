@@ -4,5 +4,5 @@ export interface IScore {
   weight: number;
   sets: number;
   time: number;
-  date: Date;
+  dateCompleted: Date;
 }

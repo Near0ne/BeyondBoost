@@ -52,7 +52,9 @@ export class ExerciseDetailModalPage implements OnInit {
   }
 
   public deleteExercise(): void {
-    this.exercisesService.deleteExercise(this.exercise.uid);
-    this.dismissModal();
+    this.exercisesService
+      .deleteExercise(this.exercise.uid)
+      .then((res) => this.dismissModal())
+      .catch((err) => console.log(err));
   }
 }
