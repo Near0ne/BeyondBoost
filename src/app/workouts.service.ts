@@ -32,12 +32,19 @@ export class WorkoutsService {
       .snapshotChanges();
   }
 
+  public fetchWorkoutExercises(workoutId: string): Observable<DocumentChangeAction<IExercise>[]> {
+    return this.firestore
+      .collection<IWorkout>(this.collectionName)
+      .doc(workoutId)
+      .collection<IExercise>('exercises')
+      .snapshotChanges();
+  }
+
   public createWorkout(userId: string, label: string): Promise<DocumentReference> {
     const workout = {
       userId,
       label,
       dateCompleted: null,
-      exercises: [],
     };
 
     return this.firestore.collection(this.collectionName).add(workout);

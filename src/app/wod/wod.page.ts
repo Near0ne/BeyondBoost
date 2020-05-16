@@ -5,8 +5,10 @@ import { WorkoutsService } from '../workouts.service';
 import { AuthService } from '../auth.service';
 import { concatMap } from 'rxjs/operators';
 import { IUser } from '../shared/types/user.interface';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IWorkout } from '../shared/types/workout.interface';
+import { DocumentChangeAction } from '@angular/fire/firestore';
+import { IExercise } from '../shared/types/exercise.interface';
 
 @Component({
   selector: 'app-wod',
@@ -16,6 +18,8 @@ import { IWorkout } from '../shared/types/workout.interface';
 export class WodPage implements OnInit {
   public workout: IWorkout;
   public user: IUser;
+  public workoutExercises$: Observable<DocumentChangeAction<IExercise>[]>;
+  public workoutExercises;
 
   private workoutUid: string;
 
@@ -50,14 +54,24 @@ export class WodPage implements OnInit {
             return of(null);
           }
         }),
+        concatMap((workout) => {
+          this.workout = workout;
+
+          if (workout) {
+            return this.workoutsService.fetchWorkoutExercises(this.workoutUid);
+          }
+
+          return of(null);
+        }),
       )
-      .subscribe((workout: IWorkout) => {
-        this.workout = workout;
+      .subscribe((exercises) => {
+        if (exercises) {
+          this.workoutExercises = exercises;
+        }
       });
   }
 
   public async presentAddExerciseModal() {
-    console.log('WORKOUT ID', this.workoutUid);
     const modal = await this.modalController.create({
       component: AddExerciseModalPage,
       componentProps: {

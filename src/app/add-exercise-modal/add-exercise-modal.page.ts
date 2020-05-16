@@ -16,7 +16,6 @@ export class AddExerciseModalPage implements OnInit {
   @Input() workoutUid: string;
 
   public exercises$: Observable<DocumentChangeAction<IExercise>[]>;
-  public selectedExercise: IExercise;
   public addExerciseForm = this.fb.group({
     exercise: ['', Validators.required],
   });
@@ -36,8 +35,12 @@ export class AddExerciseModalPage implements OnInit {
     const workoutUid = this.workoutUid;
     this.exercises$.subscribe((exercises) => {
       const exercise = exercises.find((ex) => ex.payload.doc.id === this.addExerciseForm.controls.exercise.value);
-      console.log(workoutUid);
-      this.workoutsService.addExercise(workoutUid, exercise.payload.doc.data());
+      this.workoutsService
+        .addExercise(workoutUid, exercise.payload.doc.data())
+        .then((res) => {
+          this.dismissModal();
+        })
+        .catch((err) => console.log(err));
     });
   }
 
