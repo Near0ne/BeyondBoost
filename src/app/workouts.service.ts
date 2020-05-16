@@ -61,6 +61,15 @@ export class WorkoutsService {
       .set({ ...data }, { merge: true });
   }
 
+  public deleteWorkoutExercise(workoutUid: string, exerciseUid: string): Promise<void> {
+    return this.firestore
+      .collection(this.collectionName)
+      .doc(workoutUid)
+      .collection('exercises')
+      .doc(exerciseUid)
+      .delete();
+  }
+
   public deleteWorkout(uid: string): Promise<void> {
     return this.firestore.collection(this.collectionName).doc(uid).delete();
   }

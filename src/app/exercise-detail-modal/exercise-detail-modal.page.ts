@@ -11,6 +11,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ExerciseDetailModalPage implements OnInit {
   @Input() exercise: IExercise;
+  @Input() editable: boolean;
 
   public showEditForm = false;
   public editExerciseForm = this.fb.group({

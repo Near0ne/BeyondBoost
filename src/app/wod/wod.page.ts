@@ -9,6 +9,8 @@ import { Observable, of } from 'rxjs';
 import { IWorkout } from '../shared/types/workout.interface';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { IExercise } from '../shared/types/exercise.interface';
+import { QueryDocumentSnapshot } from '@angular/fire/firestore/interfaces';
+import { ExerciseDetailModalPage } from '../exercise-detail-modal/exercise-detail-modal.page';
 
 @Component({
   selector: 'app-wod',
@@ -71,6 +73,15 @@ export class WodPage implements OnInit {
       });
   }
 
+  public removeExercise(event, exerciseUid: string): void {
+    event.stopPropagation();
+
+    this.workoutsService
+      .deleteWorkoutExercise(this.workoutUid, exerciseUid)
+      .then((res) => {})
+      .catch((err) => console.log('Error', err));
+  }
+
   public async presentAddExerciseModal() {
     const modal = await this.modalController.create({
       component: AddExerciseModalPage,
@@ -81,10 +92,20 @@ export class WodPage implements OnInit {
     return await modal.present();
   }
 
-  public async presentEditWorkoutExerciseModal() {
+  public async presentExerciseDetailModal(document: QueryDocumentSnapshot<IExercise>) {
+    const exercise = {
+      uid: document.id,
+      ...document.data(),
+    };
+
     const modal = await this.modalController.create({
-      component: AddExerciseModalPage,
+      component: ExerciseDetailModalPage,
+      componentProps: {
+        exercise,
+        editable: false,
+      },
     });
+
     return await modal.present();
   }
 }

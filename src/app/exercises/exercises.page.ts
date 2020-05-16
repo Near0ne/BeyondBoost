@@ -39,6 +39,7 @@ export class ExercisesPage implements OnInit {
       component: ExerciseDetailModalPage,
       componentProps: {
         exercise,
+        editable: true,
       },
     });
 
