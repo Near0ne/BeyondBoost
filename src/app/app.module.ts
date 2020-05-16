@@ -29,7 +29,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CreateExerciseModalPageModule,
     ExerciseDetailModalPageModule,
     AddExerciseModalPageModule,
-    FlexLayoutModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
