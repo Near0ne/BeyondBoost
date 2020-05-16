@@ -82,6 +82,38 @@ export class WodPage implements OnInit {
       .catch((err) => console.log('Error', err));
   }
 
+  public completeWorkout(): void {
+    this.workoutsService
+      .updateWorkout(this.workoutUid, { dateCompleted: new Date() })
+      .then((res) => {
+        return this.workoutsService
+          .fetchUserCurrentWorkout(this.user.uid)
+          .pipe(
+            concatMap((workout) => {
+              if (workout && workout.length > 0) {
+                this.workoutUid = workout[0].payload.doc.id;
+                return of(workout[0].payload.doc.data());
+              }
+            }),
+            concatMap((workout) => {
+              this.workout = workout;
+
+              if (workout) {
+                return this.workoutsService.fetchWorkoutExercises(this.workoutUid);
+              }
+
+              return of(null);
+            }),
+          )
+          .subscribe((exercises) => {
+            if (exercises) {
+              this.workoutExercises = exercises;
+            }
+          });
+      })
+      .catch((err) => console.log(err));
+  }
+
   public async presentAddExerciseModal() {
     const modal = await this.modalController.create({
       component: AddExerciseModalPage,

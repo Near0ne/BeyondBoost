@@ -12,7 +12,7 @@
   </ng-container>
 
   <ng-container *ngIf="user">
-    <div *ngIf="workoutExercises === 0" fxLayoutAlign="center">
+    <div *ngIf="workoutExercises?.length === 0" fxLayoutAlign="center">
       <ion-icon name="sad-outline"></ion-icon>&nbsp;Vous n'avez aucun exercice dans votre entraînement.
     </div>
 
@@ -36,6 +36,10 @@
         </ion-item>
       </ion-item-sliding>
     </ion-list>
+
+    <ion-button expand="block" color="success" (click)="completeWorkout()">
+      <ion-icon name="checkmark-outline"></ion-icon>&nbsp;J'ai terminé
+    </ion-button>
   </ng-container>
 </ion-content>
 <!--

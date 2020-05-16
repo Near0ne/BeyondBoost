@@ -54,7 +54,7 @@ export class WorkoutsService {
     return this.firestore.collection(this.collectionName).doc(workoutUid).collection('exercises').add(exercise);
   }
 
-  public updateWorkout(uid: string, data: { label?: string }): Promise<void> {
+  public updateWorkout(uid: string, data: { label?: string; dateCompleted?: Date }): Promise<void> {
     return this.firestore
       .collection(this.collectionName)
       .doc(uid)
