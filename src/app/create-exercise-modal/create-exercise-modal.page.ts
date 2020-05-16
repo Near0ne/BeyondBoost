@@ -23,12 +23,12 @@ export class CreateExerciseModalPage implements OnInit {
   ngOnInit() {}
 
   public createExercise() {
-    this.exercisesService.createExercise(
-      this.createExerciseForm.controls.label.value,
-      this.createExerciseForm.controls.description.value,
-    );
-
-    this.dismissModal();
+    this.exercisesService
+      .createExercise(this.createExerciseForm.controls.label.value, this.createExerciseForm.controls.description.value)
+      .then((res) => {
+        this.dismissModal();
+      })
+      .catch((err) => console.log('Erreur', err));
   }
 
   public dismissModal(): void {

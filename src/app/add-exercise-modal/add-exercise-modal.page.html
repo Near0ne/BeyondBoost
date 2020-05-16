@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ajouter un exercice</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Annuler</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="addExerciseForm">
+    <ion-list>
+      <ion-item>
+        <ion-label>Exercice</ion-label>
+        <ion-select placeholder="Choisissez un exercice..." formControlName="exercise">
+          <ion-select-option *ngFor="let exercise of (exercises$ | async)" [value]="exercise.payload.doc.id">
+            {{ exercise.payload.doc.data().label }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </form>
+
+  <ion-button expand="block" [disabled]="addExerciseForm.invalid" (click)="addExercise()">Valider</ion-button>
+</ion-content>

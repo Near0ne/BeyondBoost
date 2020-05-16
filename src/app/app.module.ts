@@ -16,6 +16,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+import { AddExerciseModalPageModule } from './add-exercise-modal/add-exercise-modal.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +28,8 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     CreateExerciseModalPageModule,
     ExerciseDetailModalPageModule,
+    AddExerciseModalPageModule,
+    FlexLayoutModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
