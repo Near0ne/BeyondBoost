@@ -11,10 +11,21 @@
     <ion-button fill="outline" [routerLink]="['/auth', 'login']">Connexion</ion-button>
   </ng-container>
 
-  <ng-container *ngIf="loggedIn$ | async">
-    <ion-button fill="outline"
-                expand="block"
-                color="danger"
-                (click)="logout()">Déconnexion</ion-button>
-  </ng-container>
+  <div *ngIf="loggedIn$ | async">
+    <div class="profile-picture">
+      <ion-item>
+        <ion-avatar *ngIf="!profilePictureUrl" slot="start" (click)="openGallery()">
+          <img src="/assets/img/icons/icon-128x128.png" />
+        </ion-avatar>
+
+        <ion-avatar *ngIf="profilePictureUrl" slot="start" (click)="openGallery()">
+          <img [src]="profilePictureUrl" />
+        </ion-avatar>
+
+        <ion-label>{{ (user$ | async ).email }}</ion-label>
+      </ion-item>
+    </div>
+
+    <ion-button fill="outline" expand="block" color="danger" (click)="logout()">Déconnexion</ion-button>
+  </div>
 </ion-content>
