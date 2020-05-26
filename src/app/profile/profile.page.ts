@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { IUser } from '../shared/types/user.interface';
 import { Observable } from 'rxjs';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import * as firebase from 'firebase';
 import { filter } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { ToastController } from '@ionic/angular';
 export interface MyData {
   name: string;
   filepath: string;
@@ -34,6 +35,7 @@ export class ProfilePage implements OnInit {
     private database: AngularFirestore,
     private authService: AuthService,
     private camera: Camera,
+    public toastController: ToastController,
   ) {
     // Set collection where our documents/ images info will save
     this.imageCollection = database.collection<MyData>('profilePictures');
@@ -82,30 +84,22 @@ export class ProfilePage implements OnInit {
       });
   }
 
-  // public addImagetoDB(image: MyData) {
-  //   // Create an ID for document
-  //   const id = this.database.createId();
-  //
-  //   // Set document id with value in database
-  //   this.imageCollection
-  //     .doc(id)
-  //     .set(image)
-  //     .then((resp) => {
-  //       console.log('OK', resp);
-  //     })
-  //     .catch((error) => {
-  //       console.log('error ' + error);
-  //     });
-  // }
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+    });
+    toast.present();
+  }
 
   public openGallery(): void {
     const options: CameraOptions = {
-      quality: 50,
+      quality: 10,
       destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
+      // encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation: true,
-      sourceType: 0,
+      // correctOrientation: true,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
 
     this.camera.getPicture(options).then(
@@ -119,11 +113,11 @@ export class ProfilePage implements OnInit {
         const imageRef = firebase.storage().ref().child(`${this.user.uid}.jpg`);
 
         imageRef.putString(imageData, 'base64url').then((snapshot) => {
-          console.log('Uploaded a base64url string!');
+          this.presentToast('Votre photo de profil a été mise à jour !');
         });
       },
       (err) => {
-        // Handle error
+        console.log('ERROR', err);
       },
     );
   }
